@@ -1,32 +1,28 @@
 <?php
 /**
- * Plugin Name: WooCommerce Extension Plugin Boilerplate
- * Version: 1.0.0
- * Plugin URI: https://blog.vilourenco.com.br
- * Description: Woo Extension Plugin Boilerplate
- * Author: Vinícius Lourenço
- * Author URI: https://blog.vilourenco.com.br
- * Requires at least: 4.4.0
- * Tested up to: 4.6.0
- *
- * Text Domain: woo-extension-plugin-boilerplate
- * Domain Path: /languages
+ * Plugin Name: VR WooCommerce - Forma de pagamento
+ * Plugin URI: https://brasa.art.br
+ * Description: VR WooCommerce - Forma de pagamento by Brasa.art.br
+ * Author: SkyVerge
+ * Author URI: https://brasa.art.br
+ * Version: 0.1
+ * Text Domain: vr-woocommerce
+ * Domain Path: /languages/
  *
  * @package WordPress
- * @author  Vinícius Lourenço
+ * @author  Brasa.art.br
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-
-if ( ! class_exists( 'WooCommerce_Plugin_Extension_Boilerplate' ) ) {
+if ( ! class_exists( 'VR_WC' ) ) {
 
 	/**
 	 * Main Class.
 	 */
-	class WooCommerce_Plugin_Extension_Boilerplate {
+	class VR_WC {
 
 
 		/**
@@ -73,8 +69,8 @@ if ( ! class_exists( 'WooCommerce_Plugin_Extension_Boilerplate' ) ) {
          *
          */
         public static function activate() {
-            include_once 'includeswoocommerce-plugin-extension-boilerplate-activate.php';
-            WooCommerce_Plugin_Extension_Boilerplate_Activate::activate();
+            include_once 'includes/vr-wc-activate.php';
+            VR_WC_Activate::activate();
 
         }
 
@@ -83,8 +79,8 @@ if ( ! class_exists( 'WooCommerce_Plugin_Extension_Boilerplate' ) ) {
          *
          */
         public static function deactivate() {
-            include_once 'includes/woocommerce-plugin-extension-boilerplate-deactivate.php';
-            WooCommerce_Plugin_Extension_Boilerplate_Deactivate::deactivate();
+            //include_once 'includes/vr-wc-deactivate.php';
+            //VR_WC_Deactivate::deactivate();
         }
 
 		/**
@@ -93,7 +89,8 @@ if ( ! class_exists( 'WooCommerce_Plugin_Extension_Boilerplate' ) ) {
 		 * @var string
 		 */
 		public function includes() {
-			include_once 'includes/woocommerce-extension-functionality.php';
+			include_once 'includes/class-woocommerce-gateway.php';
+			vr_wc_gateway_init();
 		}
 
 		/**
@@ -128,14 +125,14 @@ if ( ! class_exists( 'WooCommerce_Plugin_Extension_Boilerplate' ) ) {
 /**
 * Hook to run when your plugin is activated
 */
-register_activation_hook( __FILE__, array( 'WooCommerce_Plugin_Extension_Boilerplate', 'activate' ) );
+register_activation_hook( __FILE__, array( 'VR_WC', 'activate' ) );
 
 /**
 * Hook to run when your plugin is deactivated
 */
-register_deactivation_hook( __FILE__, array( 'WooCommerce_Plugin_Extension_Boilerplate', 'deactivate' ) );
+register_deactivation_hook( __FILE__, array( 'VR_WC', 'deactivate' ) );
 
 /**
 * Initialize the plugin.
 */
-add_action( 'plugins_loaded', array( 'WooCommerce_Plugin_Extension_Boilerplate', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'VR_WC', 'get_instance' ) );
