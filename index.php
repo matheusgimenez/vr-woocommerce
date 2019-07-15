@@ -70,6 +70,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
          */
         public static function activate() {
             include_once 'includes/vr-wc-activate.php';
+
             VR_WC_Activate::activate();
 
         }
@@ -89,6 +90,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 * @var string
 		 */
 		public function includes() {
+			include_once 'includes/classes/class-vr-api.php';
 			include_once 'includes/class-woocommerce-gateway.php';
 			vr_wc_gateway_init();
 		}
@@ -136,3 +138,15 @@ register_deactivation_hook( __FILE__, array( 'VR_WC', 'deactivate' ) );
 * Initialize the plugin.
 */
 add_action( 'plugins_loaded', array( 'VR_WC', 'get_instance' ) );
+
+
+/**
+* Initialize the plugin.
+*/
+function test_api_vr() {
+	$api = new VR_WP_API_HTTP();
+	$api->set_api_type( 'producao' );
+	$api->http_authenticate();
+	//$api->make_transaction();
+}
+add_action( 'wp_footer', 'test_api_vr' );
