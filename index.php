@@ -51,14 +51,26 @@ if ( ! class_exists( 'VR_WC' ) ) {
 			}
 			return self::$instance;
 		}
-
+		/**
+		 * Retorna o diretório do arquivo
+		 *
+		 * @return string
+		 */
+		public static function dir_path() {
+			return plugin_dir_path( __FILE__ );
+		}
 		/**
 		 * Constructor
 		 */
 		private function __construct() {
+			$this->dir_path = plugin_dir_path( __FILE__ );
 			if ( ! class_exists( 'WooCommerce' ) ) {
 				add_action( 'admin_notices', array( $this, 'fallback_notice' ) );
 			} else {
+				if ( 'BRL' != get_woocommerce_currency() ){
+					add_action( 'admin_notices', array( $this, 'fallback_currency' ) );
+					return false;
+				}
 				$this->load_plugin_textdomain();
 				$this->includes();
 			}
@@ -118,7 +130,17 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 */
 		public function fallback_notice() {
 			echo '<div class="error">';
-			echo '<p>' . __( 'Woo Extension Plugin Boilerplate: Needs the WooCommerce Plugin activated.', 'woo-extension-plugin-boilerplate' ) . '</p>';
+			echo '<p>' . __( 'Woo Extension Plugin Boilerplate: Needs the WooCommerce Plugin activated.', 'vr-woocommerce' ) . '</p>';
+			echo '</div>';
+		}
+
+		/**
+		 * Bloquear funcionamento do plugin em outras moedas
+		 *
+		 */
+		public function fallback_currency() {
+			echo '<div class="error">';
+			echo '<p>' . __( 'VR WooCommerce works only with BRL currency (Brazil)', 'vr-woocommerce' ) . '</p>';
 			echo '</div>';
 		}
 	}

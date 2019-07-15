@@ -73,7 +73,7 @@ function vr_wc_gateway_init() {
 		 * Constructor for the gateway.
 		 */
 		public function __construct() {
-	  
+
 			$this->id                 = 'vr-wc-gateway';
 			$this->icon               = apply_filters('woocommerce_offline_icon', '');
 			$this->has_fields         = false;
@@ -153,6 +153,13 @@ function vr_wc_gateway_init() {
 					'default'     => '',
 					'desc_tip'    => true,
 				),
+				'filiacao_id' => array(
+					'title'       => __( 'Filiation ID', 'vr-woocommerce' ),
+					'type'        => 'text',
+					'default'     => '',
+					'desc_tip'    => true,
+				),
+
 			) );
 		}
 	
@@ -181,8 +188,26 @@ function vr_wc_gateway_init() {
 				echo wpautop( wptexturize( $this->instructions ) ) . PHP_EOL;
 			}
 		}
-	
-	
+		/**
+		* Payment fields.
+		*/
+		public function payment_fields() {
+			wp_enqueue_script( 'wc-credit-card-form' );
+			$description = $this->get_description();
+			if ( $description ) {
+				echo wpautop( wptexturize( $description ) ); // WPCS: XSS ok.
+			}
+			$cart_total = $this->get_order_total();
+			var_dump( VR_WC::dir_path() . 'templates' );
+			wc_get_template(
+				'checkout-form.php',
+				array(
+					'cart_total'        => $cart_total,
+				), 
+				'woocommerce/vr-woocommerce/', VR_WC::dir_path() . 'templates/'
+			);
+		}
+
 		/**
 		 * Process the payment and return the result
 		 *

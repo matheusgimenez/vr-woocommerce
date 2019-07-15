@@ -109,15 +109,46 @@ class VR_WP_API_HTTP{
 			$this->api_type = 'dev';
 			$this->api_url = $this->dev_url;
 		} else {
-			$error = new WP_Error( 'vr_wp_api_http_no_api_type', __( 'No API Type is set in class-vr-api.php', 'vr_woocommerce' ) );
+			$error = new WP_Error( 'vr_wp_api_http_no_api_type', __( 'No API Type is set in class-vr-api.php', 'vr-woocommerce' ) );
 			wp_die( $error );
 		}
 	}
+	/**
+	 * Seta o campo "secret" da API
+	 * @param string $secret
+	 * @return boolean
+	 */
+	public function set_api_secret( $secret = '' ){
+		if( empty( $secret) ) {
+			//colocar wp error aqui
+			return false;
+		}
+		$this->secret = $secret;
+		return true;
+	}
+	/**
+	 * Seta o campo "client_id" da API
+	 * @param string $client_id
+	 * @return boolean
+	 */
+	public function set_api_client_id( $client_id = '' ){
+		if( empty( $client_id ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+		$this->client_id = $client_id;
+		return true;
+	}
+
 	/**
 	 * Faz a autenticação na API
 	 * @return boolean
 	 */
 	public function http_authenticate() {
+		if ( ! $this->client_id || empty( $this->client_id ) ){
+			// colocar wp error aqui
+			return false;
+		}
 		$body = array(
 			'client_id' => $this->client_id,
 			'redirect_uri' => home_url()
@@ -161,7 +192,13 @@ class VR_WP_API_HTTP{
 		//var_dump( $response_json );
 		return true;
 	}
+	/**
+	 * Seta o array da transação
+	 * @param array $data
+	 * @return boolean
+	 */
 	public function set_transaction_data( $data = array() ) {
+		// Verica cada um dos campos do array
 		if ( ! isset( $data[ 'value' ] ) || ! is_numeric( $data[ 'value' ] ) ) {
 			//colocar wp error aqui
 			return false;
@@ -179,17 +216,56 @@ class VR_WP_API_HTTP{
 			//colocar wp error aqui
 			return false;
 		}
+		if ( ! isset( $data[ 'card_num' ] ) || ! is_numeric( $data[ 'card_num' ] ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+
+		if ( ! isset( $data[ 'card_num' ] ) || ! is_numeric( $data[ 'card_num' ] ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+		if ( ! isset( $data[ 'exp_date' ] ) || ! is_numeric( $data[ 'exp_date' ] ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+		if ( ! isset( $data[ 'exp_date' ] ) || ! is_numeric( $data[ 'cpf' ] ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+
+		if ( ! isset( $data[ 'ccv' ] ) || ! is_numeric( $data[ 'ccv' ] ) ) {
+			//colocar wp error aqui
+			return false;
+		}
+
 
 		$this->transaction_data = array(
-			'valor' 			=> absint( $data[ 'value'] );
-			'id_filiacao' 		=> $data[ 'id_filiacao' ];
+			'valor' 			=> absint( $data[ 'value'] ),
+			'id_filiacao' 		=> $data[ 'id_filiacao' ],
 			'cartao_voucher'	=> array(
-				'nome'				=> $data['name'],
-				'numero_cartao'		=> $data[ 'card_num' ]
+				'nome'				=> esc_textarea( $data['name'] ),
+				'numero_cartao'		=> absint( $data[ 'card_num' ] ),
+				'data_expiracao'	=> absint( $data[ 'exp_date' ] ),
+				'ccv'				=> absint( $data[ 'ccv' ] ),
+				'documento'			=> absint( $data[ 'cpf' ] ),
 			)
 		);
 
 	}
+	/**
+	 * Executa a transação financeira na API
+	 * @return boolean
+	 */
 	public function make_transaction() {
+		if ( ! $this->client_id || empty( $this->client_id ) ){
+			// colocar wp error aqui
+			return false;
+		}
+		if ( ! $this->access_token || empty( $this->access_token ) ){
+			// colocar wp error aqui
+			return false;
+		}
+
 	}
 }
