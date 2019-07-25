@@ -3,7 +3,7 @@
  * Plugin Name: VR WooCommerce - Forma de pagamento
  * Plugin URI: https://brasa.art.br
  * Description: VR WooCommerce - Forma de pagamento by Brasa.art.br
- * Author: SkyVerge
+ * Author: Brasa
  * Author URI: https://brasa.art.br
  * Version: 0.1
  * Text Domain: vr-woocommerce
@@ -114,13 +114,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 * @return bool
 		 */
 		public function load_plugin_textdomain() {
-			$locale = apply_filters( 'wepb_plugin_locale', get_locale(), 'woocommerce-extension-plugin-boilerplate' );
-
-			//load_textdomain( 'woo-extension-plugin-boilerplate', trailingslashit( WP_LANG_DIR ) . 'woocommerce-extension-plugin-boilerplate/woocommerce-extension-plugin-boilerplate' . '-' . $locale . '.mo' );
-
-			//load_plugin_textdomain( 'woocommerce-extension-plugin-boilerplate', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
-			return true;
+			load_plugin_textdomain( 'vr-woocommerce', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
 		}
 
 		/**
@@ -130,7 +124,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 */
 		public function fallback_notice() {
 			echo '<div class="error">';
-			echo '<p>' . __( 'Woo Extension Plugin Boilerplate: Needs the WooCommerce Plugin activated.', 'vr-woocommerce' ) . '</p>';
+			echo '<p>' . __( 'VR WooCommerce: Needs the WooCommerce Plugin activated.', 'vr-woocommerce' ) . '</p>';
 			echo '</div>';
 		}
 
@@ -160,15 +154,3 @@ register_deactivation_hook( __FILE__, array( 'VR_WC', 'deactivate' ) );
 * Initialize the plugin.
 */
 add_action( 'plugins_loaded', array( 'VR_WC', 'get_instance' ) );
-
-
-/**
-* Initialize the plugin.
-*/
-function test_api_vr() {
-	$api = new VR_WP_API_HTTP();
-	$api->set_api_type( 'producao' );
-	$api->http_authenticate();
-	//$api->make_transaction();
-}
-add_action( 'wp_footer', 'test_api_vr' );

@@ -1,0 +1,160 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VR WooCommerce - Forma de pagamento\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-25 00:09+0000\n"
+"PO-Revision-Date: 2019-07-25 00:09+0000\n"
+"Last-Translator: matheus <matheus@brasa.art.br>\n"
+"Language-Team: Português do Brasil\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.1"
+
+#: index.php:133
+msgid "VR WooCommerce: Needs the WooCommerce Plugin activated."
+msgstr "VR WooCommerce: Você precisa ter instalado o WooCommerce ativado"
+
+#: index.php:143
+msgid "VR WooCommerce works only with BRL currency (Brazil)"
+msgstr "O VR Woocommerce funciona apenas com a moeda Reais do Brasil (R$)"
+
+#: includes/class-woocommerce-gateway.php:47
+msgid "Configure"
+msgstr "Configure"
+
+#: includes/class-woocommerce-gateway.php:80
+msgid "VR Card Payments"
+msgstr "Pagamento por cartão VR"
+
+#: includes/class-woocommerce-gateway.php:109
+msgid "Enable/Disable"
+msgstr "Ativar/Desativar"
+
+#: includes/class-woocommerce-gateway.php:111
+msgid "Enable VR Card Payment"
+msgstr "Habilitar pagamento por cartão VR"
+
+#: includes/class-woocommerce-gateway.php:116
+msgid "Title"
+msgstr "Título"
+
+#: includes/class-woocommerce-gateway.php:118
+msgid ""
+"This controls the title for the payment method the customer sees during "
+"checkout."
+msgstr ""
+"Isso controla o título do método de pagamento que o cliente vê durante o "
+"checkout."
+
+#: includes/class-woocommerce-gateway.php:119
+msgid "VR Card Payment"
+msgstr "Pagamento por cartão VR"
+
+#: includes/class-woocommerce-gateway.php:124
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/class-woocommerce-gateway.php:131
+msgid "Instructions"
+msgstr "Instruções"
+
+#: includes/class-woocommerce-gateway.php:133
+#: includes/class-woocommerce-gateway.php:140
+msgid "Instructions that will be added to the thank you page and emails."
+msgstr "Instruções que serão adicionadas à página de agradecimento e e-mails."
+
+#: includes/class-woocommerce-gateway.php:138
+msgid "Endpoint"
+msgstr "Endpoint"
+
+#: includes/class-woocommerce-gateway.php:144
+msgid "Developer Portal (Mock)"
+msgstr "Developer Portal (Mock)"
+
+#: includes/class-woocommerce-gateway.php:145
+msgid "Homologation"
+msgstr "Homologação"
+
+#: includes/class-woocommerce-gateway.php:146
+msgid "Production"
+msgstr "Produção"
+
+#: includes/class-woocommerce-gateway.php:150
+msgid "Client ID"
+msgstr "Client ID"
+
+#: includes/class-woocommerce-gateway.php:152
+msgid ""
+"<a href=\"https://dev.vr.com.br/api-portal/myapps\">Create an app and get "
+"the CLIENT_ID"
+msgstr "Criar um app e obtenha o CLIENT_ID"
+
+#: includes/class-woocommerce-gateway.php:157
+msgid "Filiation ID"
+msgstr "ID de filiação"
+
+#: includes/class-woocommerce-gateway.php:163
+msgid "Secret"
+msgstr "Secret"
+
+#: includes/class-woocommerce-gateway.php:227
+#: includes/class-woocommerce-gateway.php:234
+#: includes/class-woocommerce-gateway.php:241
+#: includes/class-woocommerce-gateway.php:248
+#: includes/class-woocommerce-gateway.php:255
+#: includes/class-woocommerce-gateway.php:262
+#: includes/class-woocommerce-gateway.php:270
+#: includes/class-woocommerce-gateway.php:278
+#: includes/class-woocommerce-gateway.php:303
+msgid "VR: Purchase refused, check the data and try again"
+msgstr ""
+"VR: Compra recusada pela operadora, verifique os dados e tente novamente!"
+
+#: includes/class-woocommerce-gateway.php:310
+msgid "Payment Accept"
+msgstr "Pagamento aprovado"
+
+#: templates/checkout-form.php:15
+msgid "VR Card owner's name"
+msgstr "Nome no cartão"
+
+#: templates/checkout-form.php:19
+msgid "VR Card owner's Document"
+msgstr "Documento do proprietário"
+
+#: templates/checkout-form.php:24
+msgid "Number"
+msgstr "Numero"
+
+#: templates/checkout-form.php:28
+msgid "Expiration date"
+msgstr "Data de expiração"
+
+#: templates/checkout-form.php:32
+msgid "Security Code"
+msgstr "Código de Segurança"
+
+#: templates/checkout-form.php:35
+msgid "The three numbers behind the card"
+msgstr "São os três números no verso do cartão"
+
+#. Name of the plugin
+msgid "VR WooCommerce - Forma de pagamento"
+msgstr "VR WooCommerce - Forma de pagamento"
+
+#. Description of the plugin
+msgid "VR WooCommerce - Forma de pagamento by Brasa.art.br"
+msgstr "VR WooCommerce - Forma de pagamento by Brasa.art.br"
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://brasa.art.br"
+msgstr "https://brasa.art.br"
+
+#. Author of the plugin
+msgid "Brasa"
+msgstr "Brasa"

@@ -3,11 +3,11 @@
  * Plugin Name: VR WooCommerce - Forma de pagamento
  * Plugin URI: https://brasa.art.br
  * Description: VR WooCommerce - Forma de pagamento by Brasa.art.br
- * Author: SkyVerge
+ * Author: Brasa
  * Author URI: https://brasa.art.br
  * Version: 0.1
  * Text Domain: vr-woocommerce
- * Domain Path: /i18n/languages/
+ * Domain Path: /languages/
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -62,7 +62,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vr_wc_plugin_
  * @extends		WC_Payment_Gateway
  * @version		1.0.0
  * @package		WooCommerce/Classes/Payment
- * @author 		SkyVerge
+ * @author 		Brasa
  */
 
 function vr_wc_gateway_init() {
@@ -123,8 +123,8 @@ function vr_wc_gateway_init() {
 				'description' => array(
 					'title'       => __( 'Description', 'vr-woocommerce' ),
 					'type'        => 'textarea',
-					'description' => __( 'Payment method description that the customer will see on your checkout.', 'vr-woocommerce' ),
-					'default'     => __( 'Please remit payment to Store Name upon pickup or delivery.', 'vr-woocommerce' ),
+					'description' => '',
+					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'instructions' => array(
@@ -142,8 +142,8 @@ function vr_wc_gateway_init() {
 					'desc_tip'		=> true,
 					'options'		=> array(
 						'dev'			=> __('Developer Portal (Mock)', 'vr-woocommerce'),
-						'homologacao'	=> __('Homologacão','vr-woocommerce'),
-						'producao'		=> __('Produção', 'vr-woocommerce' )
+						'homologacao'	=> __('Homologation','vr-woocommerce'),
+						'producao'		=> __('Production', 'vr-woocommerce' )
 					)
 				),
 				'client_id' => array(
@@ -159,6 +159,13 @@ function vr_wc_gateway_init() {
 					'default'     => '',
 					'desc_tip'    => true,
 				),
+				'secret' => array(
+					'title'       => __( 'Secret', 'vr-woocommerce' ),
+					'type'        => 'text',
+					'default'     => '',
+					'desc_tip'    => true,
+				),
+
 
 			) );
 		}
@@ -198,7 +205,6 @@ function vr_wc_gateway_init() {
 				echo wpautop( wptexturize( $description ) ); // WPCS: XSS ok.
 			}
 			$cart_total = $this->get_order_total();
-			var_dump( VR_WC::dir_path() . 'templates' );
 			wc_get_template(
 				'checkout-form.php',
 				array(
@@ -215,11 +221,97 @@ function vr_wc_gateway_init() {
 		 * @return array
 		 */
 		public function process_payment( $order_id ) {
-	
 			$order = wc_get_order( $order_id );
-			
+			var_dump( $this->get_order_total() );
+			if ( ! $_REQUEST[ 'vr-card-name' ] || empty( $_REQUEST[ 'vr-card-name' ] ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+			if ( ! $_REQUEST[ 'vr-card-num' ] || empty( $_REQUEST[ 'vr-card-num' ] ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+			if ( ! $_REQUEST[ 'vr-card-exp-date' ] || empty( $_REQUEST[ 'vr-card-exp-date' ] ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+			if ( ! $_REQUEST[ 'vr-card-security-code' ] || empty( $_REQUEST[ 'vr-card-security-code' ] ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+			if ( ! $_REQUEST[ 'vr-card-cpf' ] || empty( $_REQUEST[ 'vr-card-cpf' ] ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+			if ( ! $this->get_option( 'filiacao_id' ) || empty( $this->get_option( 'filiacao_id' ) ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+
+			if ( ! $this->get_option( 'secret' ) || empty( $this->get_option( 'secret' ) ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+
+			if ( ! $this->get_option( 'client_id' ) || empty( $this->get_option( 'client_id' ) ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+
+
+			$transaction_data = array(
+				'value' 		=> $this->get_order_total(),
+				'id_filiacao'	=> $this->get_option( 'filiacao_id' ),
+				'name'			=> $_REQUEST[ 'vr-card-name' ],
+				'card_num'		=> $_REQUEST[ 'vr-card-num' ],
+				'exp_date'		=> $_REQUEST[ 'vr-card-exp-date' ],
+				'ccv'			=> $_REQUEST[ 'vr-card-security-code' ],
+				'cpf'			=> $_REQUEST[ 'vr-card-cpf' ],
+			);
+			$api = new VR_WP_API_HTTP();
+			$endpoint = $this->get_option( 'endpoint' );
+			if ( ! $endpoint ) {
+				$endpoint = 'producao';
+			}
+			$api->set_api_type( $endpoint );
+			$api->set_api_secret( $this->get_option( 'secret' ) );
+			$api->set_api_client_id( $this->get_option( 'client_id' ) );
+			$api->set_transaction_data( $transaction_data );
+			$api->http_authenticate();
+			$api->make_transaction();
+			if ( $api->error || is_wp_error( $api->error ) ) {
+				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
 			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status( 'on-hold', __( 'Awaiting offline payment', 'vr-woocommerce' ) );
+			$order->update_status( 'processing', __( 'Payment Accept', 'vr-woocommerce' ) );
 			
 			// Reduce stock levels
 			$order->reduce_order_stock();
