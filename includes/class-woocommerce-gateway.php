@@ -17,12 +17,12 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  */
- 
+
 defined( 'ABSPATH' ) or exit;
 
 /**
  * Add the gateway to WC Available Gateways
- * 
+ *
  * @since 1.0.0
  * @param array $gateways all available WC gateways
  * @return array $gateways all WC gateways + offline gateway
@@ -36,7 +36,7 @@ add_filter( 'woocommerce_payment_gateways', 'vr_wc_add_to_gateways' );
 
 /**
  * Adds plugin page links
- * 
+ *
  * @since 1.0.0
  * @param array $links all plugin links
  * @return array $links all plugin links + our custom links (i.e., "Settings")
@@ -79,39 +79,39 @@ function vr_wc_gateway_init() {
 			$this->has_fields         = false;
 			$this->method_title       = __( 'VR Card Payments', 'vr-woocommerce' );
 			$this->method_description = __( 'Allows VR Card Payments' );
-		  
+
 			// Load the settings.
 			$this->init_form_fields();
 			$this->init_settings();
-		  
+
 			// Define user set variables
 			$this->title        = $this->get_option( 'title' );
 			$this->description  = $this->get_option( 'description' );
 			$this->instructions = $this->get_option( 'instructions', $this->description );
-		  
+
 			// Actions
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 			add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
-		  
+
 			// Customer Emails
 			add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
 		}
-	
-	
+
+
 		/**
 		 * Initialize Gateway Settings Form Fields
 		 */
 		public function init_form_fields() {
-	  
+
 			$this->form_fields = apply_filters( 'wc_offline_form_fields', array(
-		  
+
 				'enabled' => array(
 					'title'   => __( 'Enable/Disable', 'vr-woocommerce' ),
 					'type'    => 'checkbox',
 					'label'   => __( 'Enable VR Card Payment', 'vr-woocommerce' ),
 					'default' => 'yes'
 				),
-				
+
 				'title' => array(
 					'title'       => __( 'Title', 'vr-woocommerce' ),
 					'type'        => 'text',
@@ -119,7 +119,7 @@ function vr_wc_gateway_init() {
 					'default'     => __( 'VR Card Payment', 'vr-woocommerce' ),
 					'desc_tip'    => true,
 				),
-				
+
 				'description' => array(
 					'title'       => __( 'Description', 'vr-woocommerce' ),
 					'type'        => 'textarea',
@@ -169,8 +169,8 @@ function vr_wc_gateway_init() {
 
 			) );
 		}
-	
-	
+
+
 		/**
 		 * Output for the order received page.
 		 */
@@ -179,8 +179,8 @@ function vr_wc_gateway_init() {
 				echo wpautop( wptexturize( $this->instructions ) );
 			}
 		}
-	
-	
+
+
 		/**
 		 * Add content to the WC emails.
 		 *
@@ -190,7 +190,7 @@ function vr_wc_gateway_init() {
 		 * @param bool $plain_text
 		 */
 		public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
-		
+
 			if ( $this->instructions && ! $sent_to_admin && $this->id === $order->payment_method && $order->has_status( 'on-hold' ) ) {
 				echo wpautop( wptexturize( $this->instructions ) ) . PHP_EOL;
 			}
@@ -199,7 +199,7 @@ function vr_wc_gateway_init() {
 		* Payment fields.
 		*/
 		public function payment_fields() {
-			wp_enqueue_script( 'wc-credit-card-form' );
+			wp_enqueue_script( 'vr-wc-checkout-js', VR_WC::dir_path_url() . 'assets/js/checkout.js', array( 'jquery' ), VR_WC::$version, true );
 			$description = $this->get_description();
 			if ( $description ) {
 				echo wpautop( wptexturize( $description ) ); // WPCS: XSS ok.
@@ -209,7 +209,7 @@ function vr_wc_gateway_init() {
 				'checkout-form.php',
 				array(
 					'cart_total'        => $cart_total,
-				), 
+				),
 				'woocommerce/vr-woocommerce/', VR_WC::dir_path() . 'templates/'
 			);
 		}
@@ -312,19 +312,19 @@ function vr_wc_gateway_init() {
 			}
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status( 'processing', __( 'Payment Accept', 'vr-woocommerce' ) );
-			
+
 			// Reduce stock levels
 			$order->reduce_order_stock();
-			
+
 			// Remove cart
 			WC()->cart->empty_cart();
-			
+
 			// Return thankyou redirect
 			return array(
 				'result' 	=> 'success',
 				'redirect'	=> $this->get_return_url( $order )
 			);
 		}
-	
+
   } // end \WC_Gateway_Offline class
 }

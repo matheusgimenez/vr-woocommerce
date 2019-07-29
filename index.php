@@ -30,7 +30,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		*
 		* @var string
 		*/
-		const VERSION = '1.0.0';
+		public static $version = '1.0.0';
 
 
 		/**
@@ -60,6 +60,15 @@ if ( ! class_exists( 'VR_WC' ) ) {
 			return plugin_dir_path( __FILE__ );
 		}
 		/**
+		 * Retorna o URL Do diretório do arquivo
+		 *
+		 * @return string
+		 */
+		public static function dir_path_url() {
+			return plugin_dir_url( __FILE__ );
+		}
+
+		/**
 		 * Constructor
 		 */
 		private function __construct() {
@@ -75,7 +84,6 @@ if ( ! class_exists( 'VR_WC' ) ) {
 				$this->includes();
 			}
 		}
-
         /**
          * Method to call and run all the things that you need to fire when your plugin is activated.
          *
@@ -114,7 +122,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 * @return bool
 		 */
 		public function load_plugin_textdomain() {
-			load_plugin_textdomain( 'vr-woocommerce', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
+			load_plugin_textdomain( 'vr-woocommerce', false, basename( dirname( __FILE__ ) ) . '/languages' );
 		}
 
 		/**
