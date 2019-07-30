@@ -199,6 +199,7 @@ function vr_wc_gateway_init() {
 		* Payment fields.
 		*/
 		public function payment_fields() {
+			wp_enqueue_script( 'jquery.mask', VR_WC::dir_path_url() . 'assets/js/jquery.mask.js', array( 'jquery' ), VR_WC::$version, true );
 			wp_enqueue_script( 'vr-wc-checkout-js', VR_WC::dir_path_url() . 'assets/js/checkout.js', array( 'jquery' ), VR_WC::$version, true );
 			$description = $this->get_description();
 			if ( $description ) {

@@ -18,16 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label for="vr-card-name">
 			<strong><?php _e( "VR Card owner's Document", 'vr-woocommerce' );?></strong>
 		</label>
-		<input type="text" class="vr-wc-num" name="vr-card-cpf" style="width:100%;" maxlength="11" />
+		<input type="text" class="vr-wc-cpf" name="vr-card-cpf" style="width:100%;" maxlength="11" />
 
 		<label for="vr-card-num">
 			<strong><?php _e( "Number", 'vr-woocommerce' );?></strong>
 		</label>
-		<input type="text" class="vr-wc-num" id="vr-card-num" name="vr-card-num" style="width:100%;" maxlength="16" />
+		<input type="text" class="vr-wc-cc-num" id="vr-card-num" name="vr-card-num" style="width:100%;" maxlength="16" />
 		<label for="vr-card-exp-date" style="width: 100%;clear:both;display:block;">
 			<strong><?php _e( "Expiration date", 'vr-woocommerce' );?></strong>
 		</label>
-		<input type="text" class="vr-wc-num" id="vr-card-exp-date" name="vr-card-exp-date" style="width:20%;" maxlength="4" />
+		<input type="text" class="vr-wc-exp" id="vr-card-exp-date" name="vr-card-exp-date" style="width:20%;" maxlength="4" />
 		<label for="vr-card-security-code" style="width: 100%;clear:both;display:block;">
 			<strong><?php _e( "Security Code", 'vr-woocommerce' );?></strong>
 			<br>
