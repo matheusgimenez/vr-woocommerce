@@ -223,7 +223,7 @@ function vr_wc_gateway_init() {
 		 */
 		public function process_payment( $order_id ) {
 			$order = wc_get_order( $order_id );
-			var_dump( $this->get_order_total() );
+			//var_dump( $this->get_order_total() );
 			if ( ! $_REQUEST[ 'vr-card-name' ] || empty( $_REQUEST[ 'vr-card-name' ] ) ) {
 				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
 				return array(
@@ -288,10 +288,10 @@ function vr_wc_gateway_init() {
 				'value' 		=> $this->get_order_total(),
 				'id_filiacao'	=> $this->get_option( 'filiacao_id' ),
 				'name'			=> $_REQUEST[ 'vr-card-name' ],
-				'card_num'		=> $_REQUEST[ 'vr-card-num' ],
-				'exp_date'		=> $_REQUEST[ 'vr-card-exp-date' ],
-				'ccv'			=> $_REQUEST[ 'vr-card-security-code' ],
-				'cpf'			=> $_REQUEST[ 'vr-card-cpf' ],
+				'card_num'		=> preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ),
+				'exp_date'		=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-exp-date' ] ),
+				'ccv'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ),
+				'cpf'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-cpf' ] ),
 			);
 			$api = new VR_WP_API_HTTP();
 			$endpoint = $this->get_option( 'endpoint' );
@@ -301,8 +301,8 @@ function vr_wc_gateway_init() {
 			$api->set_api_type( $endpoint );
 			$api->set_api_secret( $this->get_option( 'secret' ) );
 			$api->set_api_client_id( $this->get_option( 'client_id' ) );
-			$api->set_transaction_data( $transaction_data );
 			$api->http_authenticate();
+			$api->set_transaction_data( $transaction_data );
 			$api->make_transaction();
 			if ( $api->error || is_wp_error( $api->error ) ) {
 				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
@@ -312,7 +312,7 @@ function vr_wc_gateway_init() {
 				);
 			}
 			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status( 'processing', __( 'Payment Accept', 'vr-woocommerce' ) );
+			$order->update_status( 'processing', __( 'Payment Accept by VR Card', 'vr-woocommerce' ) );
 
 			// Reduce stock levels
 			$order->reduce_order_stock();

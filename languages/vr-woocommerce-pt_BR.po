@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: VR WooCommerce - Forma de pagamento\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-25 00:09+0000\n"
-"PO-Revision-Date: 2019-07-29 20:19+0000\n"
+"POT-Creation-Date: 2019-07-30 18:57+0000\n"
+"PO-Revision-Date: 2019-07-30 18:57+0000\n"
 "Last-Translator: matheus <matheus@brasa.art.br>\n"
 "Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.1"
 
-#: index.php:133
+#: index.php:135
 msgid "VR WooCommerce: Needs the WooCommerce Plugin activated."
 msgstr "VR WooCommerce: Você precisa ter instalado o WooCommerce ativado"
 
-#: index.php:143
+#: index.php:145
 msgid "VR WooCommerce works only with BRL currency (Brazil)"
 msgstr "O VR Woocommerce funciona apenas com a moeda Reais do Brasil (R$)"
 
@@ -101,22 +101,22 @@ msgstr "ID de filiação"
 msgid "Secret"
 msgstr "Secret"
 
-#: includes/class-woocommerce-gateway.php:227
-#: includes/class-woocommerce-gateway.php:234
-#: includes/class-woocommerce-gateway.php:241
-#: includes/class-woocommerce-gateway.php:248
-#: includes/class-woocommerce-gateway.php:255
-#: includes/class-woocommerce-gateway.php:262
-#: includes/class-woocommerce-gateway.php:270
-#: includes/class-woocommerce-gateway.php:278
-#: includes/class-woocommerce-gateway.php:303
+#: includes/class-woocommerce-gateway.php:228
+#: includes/class-woocommerce-gateway.php:235
+#: includes/class-woocommerce-gateway.php:242
+#: includes/class-woocommerce-gateway.php:249
+#: includes/class-woocommerce-gateway.php:256
+#: includes/class-woocommerce-gateway.php:263
+#: includes/class-woocommerce-gateway.php:271
+#: includes/class-woocommerce-gateway.php:279
+#: includes/class-woocommerce-gateway.php:308
 msgid "VR: Purchase refused, check the data and try again"
 msgstr ""
 "VR: Compra recusada pela operadora, verifique os dados e tente novamente!"
 
-#: includes/class-woocommerce-gateway.php:310
-msgid "Payment Accept"
-msgstr "Pagamento aprovado"
+#: includes/class-woocommerce-gateway.php:315
+msgid "Payment Accept by VR Card"
+msgstr "Pagamento aprovado (com cartão VR)"
 
 #: templates/checkout-form.php:15
 msgid "VR Card owner's name"

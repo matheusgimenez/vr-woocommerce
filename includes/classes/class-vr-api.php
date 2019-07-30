@@ -201,38 +201,38 @@ class VR_WP_API_HTTP{
 	public function set_transaction_data( $data = array() ) {
 		// Verica cada um dos campos do array
 		if ( ! isset( $data[ 'value' ] ) || ! is_numeric( $data[ 'value' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #1', 'vr-woocommerce' ) );
 			return false;
 		}
 		if ( ! isset( $data[ 'id_filiacao'] ) && ! is_numeric( $data[ 'id_filiacao'] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #2', 'vr-woocommerce' ) );
 			return false;
 		}
 		if ( ! isset( $data[ 'name'] ) && ! is_empty( $data['name'] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #3', 'vr-woocommerce' ) );
 
 			return false;
 		}
 		if ( ! isset( $data[ 'card_num' ] ) || ! is_numeric( $data[ 'card_num' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #4', 'vr-woocommerce' ) );
 			return false;
 		}
 
 		if ( ! isset( $data[ 'card_num' ] ) || ! is_numeric( $data[ 'card_num' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #5', 'vr-woocommerce' ) );
 			return false;
 		}
 		if ( ! isset( $data[ 'exp_date' ] ) || ! is_numeric( $data[ 'exp_date' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #6', 'vr-woocommerce' ) );
 			return false;
 		}
 		if ( ! isset( $data[ 'exp_date' ] ) || ! is_numeric( $data[ 'cpf' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #7', 'vr-woocommerce' ) );
 			return false;
 		}
 
 		if ( ! isset( $data[ 'ccv' ] ) || ! is_numeric( $data[ 'ccv' ] ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php', 'vr-woocommerce' ) );
+			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #8', 'vr-woocommerce' ) );
 			return false;
 		}
 
@@ -264,7 +264,9 @@ class VR_WP_API_HTTP{
 			return false;
 		}
 		if( ! $this->transaction_data || empty( $this->transaction_data ) ) {
-			$this->error = new WP_Error( 'vr_wp_api_http_no_access_token', __( 'No API Access Token is set in class-vr-api.php', 'vr-woocommerce' ) );
+			if ( ! $this->error || ! is_wp_error( $this->error ) ) {
+				$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #9', 'vr-woocommerce' ) );
+			}
 			return false;
 		}
 		$args = array(
