@@ -279,7 +279,7 @@ class VR_WP_API_HTTP{
 		);
 		//var_dump( $args );
 		$transaction_request = wp_remote_post( $this->api_url, $args );
-		if ( ! $transaction_request || is_wp_error( $transaction_request ) ) {
+		if ( ! $transaction_request || is_wp_error( $transaction_request ) || intval( $transaction_request[ 'response']['code'] ) > 201 ) {
 			$this->error = $transaction_request;
 			return false;
 		}

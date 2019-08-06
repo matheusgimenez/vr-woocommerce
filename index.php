@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: VR WooCommerce - Forma de pagamento
- * Plugin URI: https://brasa.art.br
- * Description: VR WooCommerce - Forma de pagamento by Brasa.art.br
+ * Plugin URI: https://vr.com.br
+ * Description: VR WooCommerce - Forma de pagamento
  * Author: Brasa
  * Author URI: https://brasa.art.br
  * Version: 0.1
