@@ -290,7 +290,7 @@ function vr_wc_gateway_init() {
 				'name'			=> $_REQUEST[ 'vr-card-name' ],
 				'card_num'		=> preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ),
 				'exp_date'		=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-exp-date' ] ),
-				'ccv'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ),
+				'cvv'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ),
 				'cpf'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-cpf' ] ),
 			);
 			$api = new VR_WP_API_HTTP();

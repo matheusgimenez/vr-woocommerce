@@ -87,6 +87,12 @@ class VR_WP_API_HTTP{
 	 * @var array
 	 */
 	private $transaction_data = array();
+
+	/**
+	 * Resposta com informações da transação na VR
+	 * @var boolean|string
+	 */
+	public $transaction_response = false;
 	/**
 	 * Função obrigatória em classes no PHP 5.7
 	 */
@@ -231,20 +237,20 @@ class VR_WP_API_HTTP{
 			return false;
 		}
 
-		if ( ! isset( $data[ 'ccv' ] ) || ! is_numeric( $data[ 'ccv' ] ) ) {
+		if ( ! isset( $data[ 'cvv' ] ) || ! is_numeric( $data[ 'cvv' ] ) ) {
 			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #8', 'vr-woocommerce' ) );
 			return false;
 		}
 
 		$this->transaction_data = array(
-			'valor' 			=> $data[ 'value'],
+			'valor' 			=> intval( str_replace( array( ',','.'), '', $data[ 'value'] ) ),
 			'id_filiacao' 		=> $data[ 'id_filiacao' ],
 			'cartao_voucher'	=> array(
 				'nome'				=> esc_textarea( $data['name'] ),
-				'numero_cartao'		=> absint( $data[ 'card_num' ] ),
-				'data_expiracao'	=> absint( $data[ 'exp_date' ] ),
-				'ccv'				=> absint( $data[ 'ccv' ] ),
-				'documento'			=> absint( $data[ 'cpf' ] ),
+				'numero_cartao'		=> trim( esc_textarea( $data[ 'card_num' ] ) ),
+				'data_expiracao'	=> str_replace( '/', '', esc_textarea( $data[ 'exp_date' ] ) ),
+				'cvv'				=> esc_textarea( $data[ 'cvv' ] ),
+				'documento'			=> str_replace( '-', '', trim( esc_textarea( $data[ 'cpf' ] ) ) ),
 			)
 		);
 
@@ -277,10 +283,11 @@ class VR_WP_API_HTTP{
 				'access_token'	=> $this->access_token,
 			)
 		);
-		//var_dump( $args );
 		$transaction_request = wp_remote_post( $this->api_url, $args );
+		$this->transaction_response = $transaction_request[ 'body' ];
 		if ( ! $transaction_request || is_wp_error( $transaction_request ) || intval( $transaction_request[ 'response']['code'] ) > 201 ) {
 			$this->error = $transaction_request;
+			//var_dump( $this->error );
 			return false;
 		}
 	}
