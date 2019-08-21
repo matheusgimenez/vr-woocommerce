@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: VR WooCommerce - Forma de pagamento\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-30 18:57+0000\n"
-"PO-Revision-Date: 2019-07-30 18:57+0000\n"
+"POT-Creation-Date: 2019-08-21 21:17+0000\n"
+"PO-Revision-Date: 2019-08-21 21:18+0000\n"
 "Last-Translator: matheus <matheus@brasa.art.br>\n"
 "Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
@@ -118,6 +118,10 @@ msgstr ""
 msgid "Payment Accept by VR Card"
 msgstr "Pagamento aprovado (com cartão VR)"
 
+#: includes/class-woocommerce-gateway.php:317
+msgid "VR Transaction details:<br>"
+msgstr ""
+
 #: templates/checkout-form.php:15
 msgid "VR Card owner's name"
 msgstr "Nome no cartão"
@@ -134,11 +138,15 @@ msgstr "Numero"
 msgid "Expiration date"
 msgstr "Data de expiração"
 
-#: templates/checkout-form.php:32
+#: templates/checkout-form.php:30
+msgid "Format: YY/MM"
+msgstr "Formato: AA/MM "
+
+#: templates/checkout-form.php:34
 msgid "Security Code"
 msgstr "Código de Segurança"
 
-#: templates/checkout-form.php:35
+#: templates/checkout-form.php:37
 msgid "The three numbers behind the card"
 msgstr "São os três números no verso do cartão"
 
@@ -146,15 +154,15 @@ msgstr "São os três números no verso do cartão"
 msgid "VR WooCommerce - Forma de pagamento"
 msgstr "VR WooCommerce - Forma de pagamento"
 
-#. Description of the plugin
-msgid "VR WooCommerce - Forma de pagamento by Brasa.art.br"
-msgstr "VR WooCommerce - Forma de pagamento by Brasa.art.br"
+#. URI of the plugin
+msgid "https://vr.com.br"
+msgstr "https://vr.com.br"
+
+#. Author of the plugin
+msgid "Brasa"
+msgstr "Brasa"
 
 #. URI of the plugin
 #. Author URI of the plugin
 msgid "https://brasa.art.br"
 msgstr "https://brasa.art.br"
-
-#. Author of the plugin
-msgid "Brasa"
-msgstr "Brasa"

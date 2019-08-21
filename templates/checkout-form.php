@@ -26,6 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="text" class="vr-wc-cc-num" id="vr-card-num" name="vr-card-num" style="width:100%;" maxlength="16" />
 		<label for="vr-card-exp-date" style="width: 100%;clear:both;display:block;">
 			<strong><?php _e( "Expiration date", 'vr-woocommerce' );?></strong>
+			<br>
+			<small><?php _e( 'Format: YY/MM', 'vr-woocommerce' );?>
 		</label>
 		<input type="text" class="vr-wc-exp" id="vr-card-exp-date" name="vr-card-exp-date" style="width:20%;" maxlength="4" />
 		<label for="vr-card-security-code" style="width: 100%;clear:both;display:block;">
