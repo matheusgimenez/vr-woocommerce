@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: VR WooCommerce - Forma de pagamento\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-21 21:17+0000\n"
-"PO-Revision-Date: 2019-08-21 21:18+0000\n"
+"PO-Revision-Date: 2019-08-21 21:21+0000\n"
 "Last-Translator: matheus <matheus@brasa.art.br>\n"
 "Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
@@ -120,7 +120,7 @@ msgstr "Pagamento aprovado (com cartão VR)"
 
 #: includes/class-woocommerce-gateway.php:317
 msgid "VR Transaction details:<br>"
-msgstr ""
+msgstr "Detalhes da transação da VR:<br>"
 
 #: templates/checkout-form.php:15
 msgid "VR Card owner's name"
