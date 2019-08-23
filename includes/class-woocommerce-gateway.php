@@ -282,16 +282,20 @@ function vr_wc_gateway_init() {
 					'redirect' => '',
 				);
 			}
-
-
+			// troca a ordem dos valores da data expiração
+			// no cartão é MM/AA
+			// na API AAMM
+			$exp_date = esc_textarea( $_REQUEST[ 'vr-card-exp-date'] );
+			$exp_date = explode( '/', $exp_date );
+			$exp_date = $exp_date[1] . $exp_date[0];
 			$transaction_data = array(
 				'value' 		=> $this->get_order_total(),
 				'id_filiacao'	=> $this->get_option( 'filiacao_id' ),
-				'name'			=> $_REQUEST[ 'vr-card-name' ],
-				'card_num'		=> preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ),
-				'exp_date'		=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-exp-date' ] ),
-				'cvv'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ),
-				'cpf'			=> preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-cpf' ] ),
+				'name'			=> esc_textarea( $_REQUEST[ 'vr-card-name' ] ),
+				'card_num'		=> esc_textarea( preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ) ),
+				'exp_date'		=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-exp-date' ] ) ),
+				'cvv'			=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ) ),
+				'cpf'			=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-cpf' ] ) ),
 			);
 			$api = new VR_WP_API_HTTP();
 			$endpoint = $this->get_option( 'endpoint' );
@@ -319,7 +323,7 @@ function vr_wc_gateway_init() {
 					$note_transacation_info .= sprintf( '%s: %s<br>', $key, $value );
 				}
 				$order->add_order_note( $note_transacation_info );
-			} 
+			}
 			// Reduce stock levels
 			$order->reduce_order_stock();
 
