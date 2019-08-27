@@ -293,7 +293,7 @@ function vr_wc_gateway_init() {
 				'id_filiacao'	=> $this->get_option( 'filiacao_id' ),
 				'name'			=> esc_textarea( $_REQUEST[ 'vr-card-name' ] ),
 				'card_num'		=> esc_textarea( preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ) ),
-				'exp_date'		=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-exp-date' ] ) ),
+				'exp_date'		=> esc_textarea( $exp_date ),
 				'cvv'			=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-security-code' ] ) ),
 				'cpf'			=> esc_textarea( preg_replace( '/[^0-9]/' , '', $_REQUEST[ 'vr-card-cpf' ] ) ),
 			);
