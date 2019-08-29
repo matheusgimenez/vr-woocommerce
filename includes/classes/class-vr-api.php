@@ -287,6 +287,10 @@ class VR_WP_API_HTTP{
 		$this->transaction_response = $transaction_request[ 'body' ];
 		if ( ! $transaction_request || is_wp_error( $transaction_request ) || intval( $transaction_request[ 'response']['code'] ) > 201 ) {
 			$this->error = $transaction_request;
+			$logger = wc_get_logger();
+			if ( $logger ) {
+				$logger->debug( $this->transaction_response, array( 'source' => 'vr-woocommerce' ) );
+			}
 			//var_dump( $this->error );
 			return false;
 		}
