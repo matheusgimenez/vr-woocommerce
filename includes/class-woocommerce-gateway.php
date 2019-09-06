@@ -288,8 +288,13 @@ function vr_wc_gateway_init() {
 			$exp_date = esc_textarea( $_REQUEST[ 'vr-card-exp-date'] );
 			$exp_date = explode( '/', $exp_date );
 			$exp_date = $exp_date[1] . $exp_date[0];
+			
+			$value = strip_tags( wc_price( $this->get_order_total(), array( 'decimals' => 3 ) ) );
+			$value = str_replace( array('R$', '&#82;&#36;'), '', $value );
+			$value = preg_replace( '/[^0-9]/', '', $value );
+
 			$transaction_data = array(
-				'value' 		=> $this->get_order_total(),
+				'value' 		=> $value,
 				'id_filiacao'	=> $this->get_option( 'filiacao_id' ),
 				'name'			=> esc_textarea( $_REQUEST[ 'vr-card-name' ] ),
 				'card_num'		=> esc_textarea( preg_replace( '/[^0-9]/', '', $_REQUEST[ 'vr-card-num' ] ) ),
@@ -309,6 +314,10 @@ function vr_wc_gateway_init() {
 			$api->set_transaction_data( $transaction_data );
 			$api->make_transaction();
 			if ( $api->error || is_wp_error( $api->error ) ) {
+				$logger = wc_get_logger();
+				if ( $logger ) {
+					$logger->debug( var_export( $api->error, true ), array( 'source' => 'vr-woocommerce' ) );
+				}
 				wc_add_notice( __( 'VR: Purchase refused, check the data and try again', 'vr-woocommerce' ), 'error' );
 				return array(
 					'result'   => 'fail',
