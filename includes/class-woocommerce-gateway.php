@@ -325,7 +325,9 @@ function vr_wc_gateway_init() {
 				);
 			}
 			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status( 'processing', __( 'Payment Accept by VR Card', 'vr-woocommerce' ) );
+			//$order->update_status( 'processing', __( 'Payment Accept by VR Card', 'vr-woocommerce' ) );
+			$order->payment_complete();
+
 			if ( $api->transaction_response ) {
 				$note_transacation_info = __( 'VR Transaction details:<br>', 'vr-woocommerce' );
 				foreach ( json_decode( $api->transaction_response ) as $key => $value) {
@@ -333,8 +335,6 @@ function vr_wc_gateway_init() {
 				}
 				$order->add_order_note( $note_transacation_info );
 			}
-			// Reduce stock levels
-			$order->reduce_order_stock();
 
 			// Remove cart
 			WC()->cart->empty_cart();
