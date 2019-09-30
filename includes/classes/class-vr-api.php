@@ -206,7 +206,7 @@ class VR_WP_API_HTTP{
 	 */
 	public function set_transaction_data( $data = array() ) {
 		// Verica cada um dos campos do array
-		if ( ! isset( $data[ 'value' ] ) || ! is_numeric( $data[ 'value' ] ) ) {
+		if ( ! isset( $data[ 'value' ] ) ) {
 			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #1', 'vr-woocommerce' ) );
 			return false;
 		}
@@ -241,9 +241,10 @@ class VR_WP_API_HTTP{
 			$this->error = new WP_Error( 'vr_wp_api_http_no_api_data', __( 'No API Transaction Data is set in class-vr-api.php #8', 'vr-woocommerce' ) );
 			return false;
 		}
-
+		$value = str_replace( array( ',','.'), '', $data[ 'value'] );
+		$value = preg_replace( '~\D~', '', $value );
 		$this->transaction_data = array(
-			'valor' 			=> intval( str_replace( array( ',','.'), '', $data[ 'value'] ) ),
+			'valor' 			=> str_replace( array( ',','.'), '', $value ),
 			'id_filiacao' 		=> $data[ 'id_filiacao' ],
 			'cartao_voucher'	=> array(
 				'nome'				=> esc_textarea( $data['name'] ),
