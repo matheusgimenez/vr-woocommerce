@@ -1,17 +1,47 @@
-name: Deploy to WordPress.org
-on:
-  push:
-    tags:
-    - "*"
-jobs:
-  tag:
-    name: New tag
-    runs-on: ubuntu-latest
-    steps:
+    # Workflow to publish plugin release to wordpress.org
+    workflow "Release Plugin" {
+        on = "push"
+        resolves = ["wordpress"]
+    }
 
-    - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@master
-      env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: vr-woocommerce-forma-de-pagamento
+    # Filter for tag
+    action "tag" {
+        uses = "actions/bin/filter@master"
+        args = "tag"
+    }
+
+    # Install Dependencies
+    action "install" {
+        uses = "actions/npm@e7aaefe"
+        needs = "tag"
+        args = "install"
+    }
+
+    # Build Plugin
+    action "build" {
+        uses = "actions/npm@e7aaefe"
+        needs = ["install"]
+        args = "run build"
+    }
+
+    # Create Release ZIP archive
+    action "archive" {
+        uses = "lubusIN/actions/archive@master"
+        needs = ["build"]
+        env = {
+                ZIP_FILENAME = "plugin-slug"
+            }
+    }
+
+    # Publish to wordpress.org repository
+    action "wordpress" {
+        uses = "lubusIN/actions/wordpress@master"
+        needs = ["archive"]
+        env = {
+            WP_SLUG = "vr-woocommerce-forma-de-pagamento"
+        }
+        secrets = [
+            "WP_USERNAME",
+            "WP_PASSWORD"
+        ]
+    }
