@@ -29,7 +29,7 @@
         uses = "lubusIN/actions/archive@master"
         needs = ["build"]
         env = {
-                ZIP_FILENAME = "plugin-slug"
+                ZIP_FILENAME = "vr-woocommerce-forma-de-pagamento"
             }
     }
 
