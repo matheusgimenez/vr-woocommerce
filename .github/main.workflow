@@ -10,6 +10,20 @@
         args = "tag"
     }
 
+    # Install Dependencies
+    action "install" {
+        uses = "actions/npm@e7aaefe"
+        needs = "tag"
+        args = "install"
+    }
+
+    # Build Plugin
+    action "build" {
+        uses = "actions/npm@e7aaefe"
+        needs = ["install"]
+        args = "run build"
+    }
+
     # Create Release ZIP archive
     action "archive" {
         uses = "lubusIN/actions/archive@master"
