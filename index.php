@@ -5,7 +5,7 @@
  * Description: VR WooCommerce - Forma de pagamento
  * Author: Brasa
  * Author URI: https://brasa.art.br
- * Version: 0.1
+ * Version: 1.0
  * Text Domain: vr-woocommerce
  * Domain Path: /languages/
  *
