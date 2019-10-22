@@ -21,3 +21,16 @@ https://dev.vr.com.br/api-portal/
 Upload plugin files to your plugins folder, or install using WordPress built-in Add New Plugin installer;
 Activate the plugin;
 Navigate to WooCommerce -> Settings -> Payment Gateways, choose VR Card and fill in your app data.
+
+== Frequently Asked Questions ==
+
+= Como faço para utilizar? =
+* Antes de tudo, é necessário ter uma conta dentro da VR Beneficios. Entre em contato pelo site para mais informações: https://www.vr.com.br/portal-vr/area-publica/faq/
+
+https://www.vr.com.br/portal-vr/area-publica/faq/
+
+
+== Changelog ==
+
+= 1.0 - 2019/10/22 =
+Primeira versão publica
