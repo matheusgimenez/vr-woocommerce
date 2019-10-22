@@ -1,9 +1,8 @@
-<?
+<?php
 /**
  * Classe para conectar via HTTP na REST API da VR
  */
 class VR_WP_API_HTTP{
-
 	/**
 	 * controla o tipo do ambiente a ser acessado
 	 * @var string
