@@ -111,7 +111,7 @@ if ( ! class_exists( 'VR_WC' ) ) {
 		 */
 		public function includes() {
 			include_once 'includes/classes/class-vr-api.php';
-			include_once 'includes/class-woocommerce-gateway.php';
+			include_once 'includes/class-wc-gateway.php';
 			vr_wc_gateway_init();
 		}
 
