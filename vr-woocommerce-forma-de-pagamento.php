@@ -90,7 +90,6 @@ if ( ! class_exists( 'VR_WC' ) ) {
          */
         public static function activate() {
             include_once 'includes/vr-wc-activate.php';
-
             VR_WC_Activate::activate();
 
         }

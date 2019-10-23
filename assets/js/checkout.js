@@ -17,5 +17,10 @@ jQuery(document).ready(function($) {
 	$('.vr-wc-cpf').mask('000.000.000-00', {reverse: true});
 	$('.vr-wc-exp').mask('00/00', {reverse: true});
 	$('.vr-wc-cc-num').mask('0000 0000 0000 0000', {reverse: true});
+	
+	$( document ).on( 'keyup', '#vr-card-name', function( e ){
+		console.log( 'qqqq' );
+		$(this).val($(this).val().toUpperCase());
+	});
 
 });
